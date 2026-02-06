@@ -1,0 +1,61 @@
+version: '3.9'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db2
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: loginapp
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data2:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin2
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: rootpass
+    depends_on:
+      - mysql
+
+  php-crud:
+    build: .
+    container_name: php_crud_app2
+    restart: always
+    ports:
+      - "8082:80"
+    depends_on:
+      - mysql
+
+volumes:
+  db_data2:
+
+services:
+  portfolio1:
+    build: ./personal-portfolio-website-main
+    container_name: portfolio1
+    ports:
+      - "8081:80"
+
+  portfolio2:
+    build: ./simple-portfolio-main
+    container_name: portfolio2
+    ports:
+      - "8082:80"
+
+  portfolio3:
+    build: ./My-Personel-Website-master
+    container_name: portfolio3
+    ports:
+      - "8083:80"
+
+
