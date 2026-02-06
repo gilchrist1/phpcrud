@@ -1,7 +1,8 @@
 <?php  
-    $connection = mysqli_connect('localhost', 'root', '', 'loginapp');
-    if(!$connection)
-    {
-        die("Not Connected");
-    }
+$connection = mysqli_connect('mysql', 'root', 'rootpass', 'loginapp');
+if(!$connection)
+{
+    die("Not Connected");
+}
 ?>
+
